@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Theme Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="basicCalculator" class="calculator">
+            <div class="menu">
+                <select id="calculatorSelect" onchange="switchCalculator()">
+                    <option value="basic">Basic Calculator</option>
+                    <option value="interest">Interest Calculator</option>
+                    <option value="currency">Currency Converter</option>
+                    <option value="unit">Unit Converter</option>
+                </select>
+            </div>
+            <div class="display">
+                <input type="text" id="input" disabled>
+            </div>
+            <div class="buttons">
+                <button class="btn" onclick="clearInput()">C</button>
+                <button class="btn" onclick="appendToInput('(')">(</button>
+                <button class="btn" onclick="appendToInput(')')">)</button>
+                <button class="btn" onclick="appendToInput('/')">/</button>
+                <button class="btn" onclick="appendToInput('7')">7</button>
+                <button class="btn" onclick="appendToInput('8')">8</button>
+                <button class="btn" onclick="appendToInput('9')">9</button>
+                <button class="btn" onclick="appendToInput('*')">*</button>
+                <button class="btn" onclick="appendToInput('4')">4</button>
+                <button class="btn" onclick="appendToInput('5')">5</button>
+                <button class="btn" onclick="appendToInput('6')">6</button>
+                <button class="btn" onclick="appendToInput('-')">-</button>
+                <button class="btn" onclick="appendToInput('1')">1</button>
+                <button class="btn" onclick="appendToInput('2')">2</button>
+                <button class="btn" onclick="appendToInput('3')">3</button>
+                <button class="btn" onclick="appendToInput('+')">+</button>
+                <button class="btn" onclick="appendToInput('.')">.</button>
+                <button class="btn" onclick="appendToInput('0')">0</button>
+                <button class="btn" onclick="appendToInput('%')">%</button>
+                <button class="btn" onclick="calculateResult()">=</button>
+            </div>
+        </div>
+        <div id="interestCalculator" class="calculator" style="display: none;">
+            <div class="menu">
+                <select id="calculatorSelect" onchange="switchCalculator()">
+                    <option value="basic">Basic Calculator</option>
+                    <option value="interest" selected>Interest Calculator</option>
+                    <option value="currency">Currency Converter</option>
+                    <option value="unit">Unit Converter</option>
+                </select>
+            </div>
+            <div class="output-display">
+                <input type="text" id="interestOutput" disabled>
+            </div>
+            <div class="interest-calculator">
+                
+                <input type="number" id="principal" placeholder="Enter principal amount">
+                <input type="number" id="rate" placeholder="Enter rate of interest">
+                <input type="number" id="time" placeholder="Enter time in years">
+                
+                <label for="interestType">Interest Type:</label>
+                <select id="interestType">
+                    <option value="simple">Simple Interest</option>
+                    <option value="compound">Compound Interest</option>
+                </select>
+                
+                <button onclick="calculateInterest()">Calculate Interest</button>
+                <div id="interestResult"></div>
+            </div>
+        </div>
+        <div id="currencyConverter" class="calculator" style="display: none;">
+            <div class="menu">
+                <select id="calculatorSelect" onchange="switchCalculator()">
+                    <option value="basic">Basic Calculator</option>
+                    <option value="interest">Interest Calculator</option>
+                    <option value="currency" selected>Currency Converter</option>
+                    <option value="unit">Unit Converter</option>
+                </select>
+            </div>
+            <div class="currency-converter">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" placeholder="Enter amount">
+                
+                <label for="fromCurrency">From:</label>
+                <select id="fromCurrency">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                    <option value="INR">INR</option>
+                    <option value="CNY">CNY</option>
+                    <option value="RUB">RUB</option>
+                </select>
+                
+                <label for="toCurrency">To:</label>
+                <select id="toCurrency">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                    <option value="INR">INR</option>
+                    <option value="CNY">CNY</option>
+                    <option value="RUB">RUB</option>
+                </select>
+                
+                <button onclick="convertCurrency()">Convert</button>
+                <div id="conversionResult"></div>
+            </div>
+        </div>
+        <div id="unitConverter" class="calculator" style="display: none;">
+            <div class="menu">
+                <select id="calculatorSelect" onchange="switchCalculator()">
+                    <option value="basic">Basic Calculator</option>
+                    <option value="interest">Interest Calculator</option>
+                    <option value="currency">Currency Converter</option>
+                    <option value="unit" selected>Unit Converter</option>
+                </select>
+            </div>
+            <div class="unit-converter">
+                <label for="unitAmount">Amount:</label>
+                <input type="number" id="unitAmount" placeholder="Enter amount">
+                
+                <label for="fromUnit">From:</label>
+                <select id="fromUnit">
+                    <option value="meters">Meters</option>
+                    <option value="kilometers">Kilometers</option>
+                    <option value="miles">Miles</option>
+                    <option value="yards">Yards</option>
+                    <option value="feet">Feet</option>
+                    <option value="inches">Inches</option>
+                </select>
+                
+                <label for="toUnit">To:</label>
+                <select id="toUnit">
+                    <option value="meters">Meters</option>
+                    <option value="kilometers">Kilometers</option>
+                    <option value="miles">Miles</option>
+                    <option value="yards">Yards</option>
+                    <option value="feet">Feet</option>
+                    <option value="inches">Inches</option>
+                </select>
+                
+                <button onclick="convertUnit()">Convert</button>
+                <div id="unitConversionResult"></div>
+            </div>
+        </div>
+        <div class="history">
+            <div class="history-header">
+                <h3>History</h3>
+                <button class="clear-history-btn" onclick="clearHistory()">Clear</button>
+            </div>
+            <ul id="historyList"></ul>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
